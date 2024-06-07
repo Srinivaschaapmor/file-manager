@@ -5,6 +5,7 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 import Frontend from "./components/Frontend";
 import Backend from "./components/Backend";
 import Dashboard from "./components/dashboard/Dashboard";
+import ContentPanel from "./components/content-panel/ContentPanel";
 
 const Router = () => {
   return (
@@ -17,7 +18,10 @@ const Router = () => {
           <Route index element={<Dashboard />}></Route>
           {/* <Route path="/frontend" element={<Frontend />}></Route>
           <Route path="/backend" element={<Backend />}></Route> */}
-          <Route path="/:folder/:sub-folder/:range/:tab/:sub-tab"></Route>
+          <Route
+            path="/:folder/:subFolder/:range/:tab/:subTab"
+            element={<ContentPanel />}
+          ></Route>
         </Route>
       </Routes>
     </BrowserRouter>

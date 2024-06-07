@@ -3,12 +3,12 @@ import React from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 const Breadcrumbs = () => {
   const location = useLocation();
-  const { item1, level1, tab1, year, itemOne } = useParams();
+  const { folder, subFolder, range, tab, subTab } = useParams();
   return (
     <Box sx={{ pt: 1, pl: 2 }}>
       <MuiBreadcrumbs maxItems={2} aria-label="breadcrumb">
-        <Typography sx={{ fontSize: 14 }}>{item1}</Typography>
-        <Typography sx={{ fontSize: 14 }}>{level1}</Typography>
+        <Typography sx={{ fontSize: 14 }}>{folder}</Typography>
+        <Typography sx={{ fontSize: 14 }}>{subFolder}</Typography>
 
         <Typography
           color="text.primary"
@@ -38,7 +38,7 @@ const Breadcrumbs = () => {
             },
           }}
         >
-          {location.pathname.includes("%20.") ? tab1 : itemOne}
+          {location.pathname.includes("%20.") ? tab : subTab}
         </Typography>
       </MuiBreadcrumbs>
     </Box>
