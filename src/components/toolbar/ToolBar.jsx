@@ -16,7 +16,13 @@ import CodeIcon from "@mui/icons-material/Code";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
-const ToolBar = ({ isSelected, params, handleFileChange, paths, buttons, dbStorage,
+const ToolBar = ({
+  isSelected,
+  params,
+  handleFileChange,
+  paths,
+  buttons,
+  dbStorage,
 }) => {
   const [value, setValue] = useState(0);
   const location = useLocation();
