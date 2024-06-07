@@ -139,7 +139,7 @@ const Sidebar = () => {
                   sx={{
                     bgcolor: "rgb(18, 22, 33)",
                     color:
-                      expandedIndex != index ? "rgb(154, 173, 186)" : "white",
+                      expandedIndex !== index ? "rgb(154, 173, 186)" : "white",
                     px: 0,
                     ":hover": {
                       bgcolor:

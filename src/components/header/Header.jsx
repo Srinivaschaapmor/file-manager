@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Avatar,
   Box,
-  Button,
   Container,
-  FormControl,
   IconButton,
   Menu,
   MenuItem,
-  Select,
   Stack,
-  Typography,
 } from "@mui/material";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/components/breadcrumbs/Breadcrumbs";
 
 const Header = () => {
