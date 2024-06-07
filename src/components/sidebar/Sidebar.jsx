@@ -7,70 +7,15 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FilterDramaIcon from "@mui/icons-material/FilterDrama";
 import { Link, useLocation } from "react-router-dom";
 import CodeIcon from "@mui/icons-material/Code";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import PeopleIcon from "@mui/icons-material/People";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-const Data = {
-  Development: {
-    "Front-End": {
-      Planning: ["Davose", "Aapmor-360", "Nexus-360"],
-      Designing: ["Project-1", "Project-2", "Project-3"],
-      Developing: ["Project-1", "Project-2", "Project-3"],
-    },
-    "Back-end": {
-      Planning: ["Project-1", "Project-2", "Project-3"],
-      Designing: ["Project-1", "Project-2", "Project-3"],
-      Developing: ["Project-1", "Project-2", "Project-3"],
-    },
-  },
-  Testing: {
-    Manual: {
-      "Lv3-1": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-2": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-3": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-    Automation: {
-      "Lv3-x": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-y": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-z": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-  },
-  HumanResource: {
-    Hiring: {
-      "Lv3-1": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-2": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-3": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-    Salary: {
-      "Lv3-x": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-y": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-z": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-  },
-  Sample: {
-    select: {
-      "Level-1": [],
-      "Level-2": [],
-      "Level-3": [],
-    },
-  },
-};
-const DataChange = {
-  Sample1: {
-    "Level-10": [],
-    "Level-2": [],
-    "Level-3": [],
-  },
-  Sample2: {
-    "Level-1": [],
-    "Level-2": [],
-    "Level-3": [],
-  },
-};
+import SidebarService from "./SidebarService";
+
 const Sidebar = () => {
   const iconMapping = {
     Development: <CodeIcon sx={{ color: "rgb(154, 173, 186)" }} />,
@@ -82,11 +27,30 @@ const Sidebar = () => {
   };
 
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [paths, setPaths] = useState("");
+  const [buttons, setButtons] = useState("");
   const location = useLocation();
 
   const handleAccordionChange = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
+
+  async function fetchPaths() {
+    const data = await SidebarService.getPaths();
+    setPaths(data);
+    // console.log(data);
+  }
+
+  async function fetchButtons() {
+    const data = await SidebarService.getButtons();
+    setButtons(data);
+    // console.log(data);
+  }
+
+  useEffect(() => {
+    fetchPaths();
+    fetchButtons();
+  }, []);
 
   return (
     <Stack direction={"row"} width={"100%"} height={"100%"}>
@@ -123,7 +87,7 @@ const Sidebar = () => {
           }}
         >
           {/* Accordians menu items */}
-          {Object.keys(Data).map((e, index) => (
+          {paths && Object.keys(paths).map((path, index) => (
             <Box key={index}>
               <Accordion
                 elevation={0}
@@ -150,8 +114,8 @@ const Sidebar = () => {
                     },
                   }}
                 >
-                  {iconMapping[e]}
-                  <Typography sx={{ marginLeft: 1 }}>{e}</Typography>
+                  {iconMapping[path]}
+                  <Typography sx={{ marginLeft: 1 }}>{path}</Typography>
                 </AccordionSummary>
 
                 <Stack
@@ -172,7 +136,7 @@ const Sidebar = () => {
                       // width: 200,
                     }}
                   >
-                    {Object.keys(Data[e]).map((e1, i) => (
+                    {Object.keys(paths[path]).map((e1, i) => (
                       <Link
                         key={i}
                         style={{
@@ -180,16 +144,16 @@ const Sidebar = () => {
                           color: "black",
                         }}
                         to={
-                          Object.values(Data[e][e1])[0].length > 0
-                            ? `/${e}/${e1}/2023-2024/${
-                                Object.keys(Data[e][e1])[0]
+                          Object.values(paths[path][e1])[0].length > 0
+                            ? `/${path}/${e1}/2023-2024/${
+                                Object.keys(paths[path][e1])[0]
                               }/${
                                 Object.entries(
-                                  Object.values(Data[e][e1])[0]
+                                  Object.values(paths[path][e1])[0]
                                 )[0]?.[1]
                               }`
-                            : `/${e}/${e1}/2023-2024/${
-                                Object.keys(Data[e][e1])[0]
+                            : `/${path}/${e1}/2023-2024/${
+                                Object.keys(paths[path][e1])[0]
                               }/ .`
                         }
                       >
@@ -226,24 +190,24 @@ const Sidebar = () => {
             </Box>
           ))}
           {/* last two Buttons */}
-          {Object.keys(DataChange).map((e, ukey) => (
+          {buttons && Object.keys(buttons).map((button, ukey) => (
             <Link
               key={ukey}
-              to={`/${e}/files/2023-2024/${Object.keys(DataChange[e])[0]}/ .`}
+              to={`/${button}/files/2023-2024/${Object.keys(buttons[button])[0]}/ .`}
             >
               <Box
                 sx={{
                   color: "rgb(154, 173, 186)",
                   px: 0.3,
                   mt: 0.5,
-                  backgroundColor: location.pathname.includes(e)
+                  backgroundColor: location.pathname.includes(button)
                     ? "rgb(255, 108, 71)"
                     : null,
                   borderRadius: 2,
                   textAlign: "left",
                   py: 1,
                   ":hover": {
-                    backgroundColor: location.pathname.includes(e)
+                    backgroundColor: location.pathname.includes(button)
                       ? "rgb(255, 108, 71)"
                       : "rgba(154, 173, 186, 0.2)",
                   },
@@ -251,7 +215,7 @@ const Sidebar = () => {
               >
                 <Button
                   sx={{
-                    color: location.pathname.includes(e)
+                    color: location.pathname.includes(button)
                       ? "white"
                       : "rgb(154, 173, 186)",
                     textTransform: "capitalize",
@@ -259,7 +223,7 @@ const Sidebar = () => {
                     px: 0,
                   }}
                 >
-                  {iconMapping[e]} {e} {/* Adding the icon and the name */}
+                  {iconMapping[button]} {button} {/* Adding the icon and the name */}
                 </Button>
               </Box>
             </Link>

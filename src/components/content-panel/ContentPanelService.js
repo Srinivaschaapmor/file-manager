@@ -1,17 +1,24 @@
 // import User from "../models/User";
 
-const DashboardService = {
-  getUsers: async () => {
-    // Example API call to fetch users
-    const response = await fetch("http://localhost:3000/api");
-
+const ContentPanelService = {
+  getPaths: async () => {
+    const response = await fetch("http://localhost:3000/paths");
     const data = await response.json();
-
-    console.log(`dashboardUser Service- data`, data);
-    // Map response data to User objects
-    // return data.map((user) => new User(user.id, user.name, user.email));
+    // console.log(`ContentPanelService paths`, data);
+    return data;
   },
-  // Other CRUD operations can be defined here
+  getButtons: async () => {
+    const response = await fetch("http://localhost:3000/buttons");
+    const data = await response.json();
+    // console.log(`ContentPanelService buttons`, data);
+    return data;
+  },
+  getEmployees: async () => {
+    const response = await fetch("http://localhost:3000/employees");
+    const data = await response.json();
+    // console.log(`ContentPanelService buttons`, data);
+    return data;
+  }
 };
 
-export default DashboardService;
+export default ContentPanelService;

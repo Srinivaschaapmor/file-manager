@@ -15,15 +15,9 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CodeIcon from "@mui/icons-material/Code";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-const ToolBar = ({
-  Data,
-  isSelected,
-  params,
-  DataChange,
-  handleFileChange,
-}) => {
-  const [value, setValue] = useState(0);
 
+const ToolBar = ({ isSelected, params, handleFileChange, paths, buttons }) => {
+  const [value, setValue] = useState(0);
   //Icons for top toolbar
   const iconItems = {
     PLANNING: <AssignmentIcon sx={{ fontSize: 18 }} />,
@@ -40,8 +34,8 @@ const ToolBar = ({
   return (
     <Stack direction={"row"} justifyContent={"space-between"}>
       <Stack direction="row" mt={1}>
-        {subFolder !== "files"
-          ? Object.keys(Data[folder][subFolder]).map((e2, i) => (
+        {paths && subFolder !== "files"
+          ? Object.keys(paths[folder][subFolder]).map((toolbarItem, i) => (
               <Tabs
                 key={i}
                 value={value}
@@ -50,32 +44,38 @@ const ToolBar = ({
               >
                 <Link
                   to={
-                    Object.values(Data[folder][subFolder][e2])[0]
-                      ? `/${folder}/${subFolder}/${range}/${e2}/${
-                          Object.values(Data[folder][subFolder][e2])[0]
+                    Object.values(paths[folder][subFolder][toolbarItem])[0]
+                      ? `/${folder}/${subFolder}/${range}/${toolbarItem}/${
+                          Object.values(
+                            paths[folder][subFolder][toolbarItem]
+                          )[0]
                         }`
-                      : `/${folder}/${subFolder}/${range}/${e2}/%20.`
+                      : `/${folder}/${subFolder}/${range}/${toolbarItem}/%20.`
                   }
                   style={{ textDecoration: "none" }}
                 >
                   <Tab
                     label={
                       <Box sx={{ display: "flex", alignItems: "center" }}>
-                        {iconItems[e2.toUpperCase()] && (
+                        {iconItems[toolbarItem.toUpperCase()] && (
                           <Box sx={{ mr: 1 }}>
-                            {iconItems[e2.toUpperCase()]}
+                            {iconItems[toolbarItem.toUpperCase()]}
                           </Box>
                         )}
-                        {e2}
+                        {toolbarItem}
                       </Box>
                     }
                     sx={{
                       position: "relative",
                       overflow: "hidden",
-                      textDecoration: isSelected(e2) ? "underline" : "none",
+                      textDecoration: isSelected(toolbarItem)
+                        ? "underline"
+                        : "none",
                       textUnderlineOffset: "18px",
-                      fontWeight: isSelected(e2) ? "700" : "normal",
-                      color: isSelected(e2) ? "rgb(254, 84, 41)" : "black",
+                      fontWeight: isSelected(toolbarItem) ? "700" : "normal",
+                      color: isSelected(toolbarItem)
+                        ? "rgb(254, 84, 41)"
+                        : "black",
                       transition: "color 0.1s linear",
                       "&::before": {
                         content: '""',
@@ -85,16 +85,16 @@ const ToolBar = ({
                         bottom: 0,
                         left: 0,
                         backgroundColor: "currentColor",
-                        transform: isSelected(e2)
+                        transform: isSelected(toolbarItem)
                           ? "translateX(0%)"
                           : "translateX(-100%)",
                         transition:
                           "transform 0.1s linear, background-color 0.1s linear",
                       },
-                      "&:hover": !isSelected(e2) && {
+                      "&:hover": !isSelected(toolbarItem) && {
                         color: "rgb(254, 84, 41)",
                       },
-                      // "&:hover::before": !isSelected(e2) && {
+                      // "&:hover::before": !isSelected(toolbarItem) && {
                       //   transform: "translateX(0%)",
                       //   backgroundColor: "rgb(254, 84, 41)",
                       // },
@@ -103,7 +103,8 @@ const ToolBar = ({
                 </Link>
               </Tabs>
             ))
-          : Object.keys(DataChange[folder]).map((e, i) => (
+          : buttons &&
+            Object.keys(buttons[folder]).map((e, i) => (
               <Tabs
                 key={i}
                 value={value}
