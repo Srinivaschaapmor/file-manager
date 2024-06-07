@@ -34,13 +34,27 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
 import { Link, useLocation, useParams } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import ComponentData from "../Data/Data";
-import { Scrollbar } from "react-scrollbars-custom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ContentPanel from "./ContentPanel";
 
-const ShareDrawer = ({ drawerOpen, handleDrawerClose }) => {
+import { Scrollbar } from "react-scrollbars-custom";
+
+import "react-toastify/dist/ReactToastify.css";
+
+const ShareDrawer = ({
+  drawerOpen,
+  handleDrawerClose,
+  setDrawerOpen,
+  selectedFileDetails,
+  department,
+  handleDepartmentChange,
+  selectAllChecked,
+  handleSelectAll,
+  add,
+  employees,
+  handleCheckboxChange,
+  handleCancel,
+  handleShareClick,
+  checkedEmployees,
+}) => {
   return (
     <Drawer anchor="right" open={drawerOpen} onClose={handleDrawerClose}>
       <Box
@@ -170,7 +184,8 @@ const ShareDrawer = ({ drawerOpen, handleDrawerClose }) => {
             </Stack>
           </Box>
         ) : (
-          <Scrollbar>
+          // <Scrollbar>
+          <>
             <Typography
               variant="h6"
               fontWeight={700}
@@ -216,7 +231,8 @@ const ShareDrawer = ({ drawerOpen, handleDrawerClose }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-          </Scrollbar>
+          </>
+          // </Scrollbar>
         )}
       </Box>
     </Drawer>
