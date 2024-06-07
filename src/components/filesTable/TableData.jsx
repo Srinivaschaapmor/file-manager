@@ -50,15 +50,12 @@ const TableData = ({
   };
 
   return value.map((file, fileIndex) => (
-    <TableBody key={index}>
+    <TableBody key={fileIndex}>
       <TableRow>
         <TableCell sx={{ p: 1, color: "#393939" }}>
           <Stack direction={"row"} alignItems={"center"} sx={{ pl: 2 }}>
             {getFileIcon(file.file.name.split(".").slice(-1)[0])}
             <Typography sx={{ pl: 2 }}>{file.file.name}</Typography>
-            {/* <Typography sx={{ width: 270 }}>
-              {value.FilesInfo.map((e) => e.name)}
-            </Typography> */}
           </Stack>
         </TableCell>
 

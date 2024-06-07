@@ -247,15 +247,15 @@ const ContentPanel = () => {
           handleFileChange={handleFileChange}
           paths={paths}
           buttons={buttons}
-        />
+          dbStorage={dbStorage}
+      />
       )}
 
       {/* Bottom Box under the top toolbar */}
       <Box
         sx={{
-          minHeight: "75vh",
           display: "flex",
-          overflowY: "auto",
+          minHeight: "70vh",
           borderTop: "1px solid rgb(203, 213, 225)",
         }}
       >

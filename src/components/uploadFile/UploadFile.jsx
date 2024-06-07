@@ -10,7 +10,7 @@ function UploadFile({ handleFileChange }) {
           <IconButton component="span">
             <CloudUploadOutlinedIcon
               sx={{
-                fontSize: 80,
+                fontSize: 50,
                 bgcolor: "rgb(255, 237, 233,0.5)",
                 color: "rgb(220, 75, 40)",
                 borderRadius: "50%",
