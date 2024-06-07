@@ -8,6 +8,7 @@ import MenuItems from "../menuItems/MenuItems";
 import FilesTable from "../filesTable/FilesTable";
 import { ToastContainer, toast } from "react-toastify";
 import ShareDrawer from "../shareDrawer/ShareDrawer";
+import DashboardService from "./ContentPanelService";
 
 const DataChange = {
   Sample1: {
@@ -275,12 +276,14 @@ const ContentPanel = () => {
   };
 
   useEffect(() => {
+    DashboardService.getUsers();
     setTempDbStorage(dbStorage);
   }, [dbStorage]);
 
   useEffect(() => {
     setSelectAllChecked(false);
   }, [department]);
+
   // Cancel button inside side drawer
   const handleCancel = () => {
     setAdd(false);
@@ -308,6 +311,7 @@ const ContentPanel = () => {
       >
         {/* Menu items */}
         <MenuItems params={useParams()} location={location} Data={Data} />
+
         {/* Upload Files Table */}
         <FilesTable
           location={location}
