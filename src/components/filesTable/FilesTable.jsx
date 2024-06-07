@@ -6,10 +6,8 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Tabs,
-  Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import UploadFile from "../uploadFile/UploadFile";
 import TableData from "./TableData";
@@ -17,7 +15,6 @@ import TableData from "./TableData";
 const FilesTable = ({
   location,
   dbStorage,
-  setDbStorage,
   handleDelete,
   handleDownload,
   handleShare,

@@ -1,9 +1,9 @@
 import { Box, Breadcrumbs as MuiBreadcrumbs, Typography } from "@mui/material";
 import React from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 const Breadcrumbs = () => {
   const location = useLocation();
-  const { folder, subFolder, range, tab, subTab } = useParams();
+  const { folder, subFolder,  tab, subTab } = useParams();
   return (
     <Box sx={{ pt: 1, pl: 2 }}>
       <MuiBreadcrumbs maxItems={2} aria-label="breadcrumb">

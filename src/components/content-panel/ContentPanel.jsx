@@ -68,11 +68,12 @@ const Data = {
   },
 };
 
-const departments = [
-  { name: "HR", members: ["Emp 1", "Emp 2", "Emp 3"] },
-  { name: "Testing", members: ["Emp 1", "Emp 2", "Emp 3"] },
-  { name: "Full Stack", members: ["Emp 1", "Emp 2", "Emp 3"] },
-];
+// const departments = [
+//   { name: "HR", members: ["Emp 1", "Emp 2", "Emp 3"] },
+//   { name: "Testing", members: ["Emp 1", "Emp 2", "Emp 3"] },
+//   { name: "Full Stack", members: ["Emp 1", "Emp 2", "Emp 3"] },
+// ];
+
 const employees = {
   "Full stack": [
     { id: 1001, name: "Srinivas" },
@@ -87,15 +88,14 @@ const employees = {
     { id: 3002, name: "Bob Brown" },
   ],
 };
+
 const ContentPanel = () => {
   const location = useLocation();
   const isSelected = (path) => location.pathname.includes(path);
 
-  const { item1, level1, tab1, year, itemOne } = useParams();
+  // const { item1, level1, tab1, year, itemOne } = useParams();
   const pathname = location.pathname;
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [value, setValue] = useState(0);
-  const [selected, setSelected] = useState(false);
   const [dbStorage, setDbStorage] = useState({});
   const [selectedFileDetails, setSelectedFileDetails] = useState(null);
   const [department, setDepartment] = useState("");
@@ -103,12 +103,8 @@ const ContentPanel = () => {
   const [checkedEmployees, setCheckedEmployees] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
 
-  const handleDrawerOpen = () => setDrawerOpen(true);
   const handleDrawerClose = () => setDrawerOpen(false);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    setSelected(true);
-  };
+
   const handleDepartmentChange = (event) => {
     setDepartment(event.target.value);
     setAdd(true);

@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DashboardLayout from "./components/layouts/DashboardLayout";
 
-import Frontend from "./components/Frontend";
-import Backend from "./components/Backend";
 import Dashboard from "./components/dashboard/Dashboard";
 import ContentPanel from "./components/content-panel/ContentPanel";
 

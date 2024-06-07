@@ -1,37 +1,9 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  Paper,
-  Stack,
-  Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
-import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
-import { Link, useLocation, useParams } from "react-router-dom";
-// import TableData from "./TableData";
-// import { DataChange, dbStorageMock } from "../../dataFolder";
-import { CheckBox } from "@mui/icons-material";
-
+import { Box, Stack, Tab, Tabs } from "@mui/material";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CodeIcon from "@mui/icons-material/Code";
-import UploadFile from "../uploadFile/UploadFile";
 
 const ToolBar = ({ Data, isSelected, params, DataChange }) => {
   const [value, setValue] = useState(0);
@@ -48,7 +20,7 @@ const ToolBar = ({ Data, isSelected, params, DataChange }) => {
   };
 
   // Destructring
-  const { folder, subFolder, range, tab, subTab } = params;
+  const { folder, subFolder, range } = params;
   return (
     <Stack direction={"row"} justifyContent={"space-between"}>
       <Stack direction="row">

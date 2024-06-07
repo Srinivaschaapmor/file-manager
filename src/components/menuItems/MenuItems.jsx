@@ -1,37 +1,7 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
-  Grid,
-  Paper,
-  Stack,
-  Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
-import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
-import { Link, useLocation, useParams } from "react-router-dom";
-// import TableData from "./TableData";
-// import { DataChange, dbStorageMock } from "../../dataFolder";
-import { CheckBox } from "@mui/icons-material";
+import { Box, Tab, Tabs } from "@mui/material";
+import React, { useState } from "react";
 
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
-import CodeIcon from "@mui/icons-material/Code";
-import UploadFile from "../uploadFile/UploadFile";
+import { Link } from "react-router-dom";
 
 const MenuItems = ({ params, location, Data }) => {
   const [value, setValue] = useState(0);
@@ -40,7 +10,7 @@ const MenuItems = ({ params, location, Data }) => {
     setValue(newValue);
   };
   // Destructring
-  const { folder, subFolder, range, tab, subTab } = params;
+  const { folder, subFolder, range, tab } = params;
   return (
     <Box
       sx={{
@@ -49,7 +19,7 @@ const MenuItems = ({ params, location, Data }) => {
         top: "0px",
         // display: "flex",
         flexBasis: location.pathname.includes("%20.") ? null : "20%",
-        borderRight: subFolder != "files" ? "1px solid #D1D1D1" : 0,
+        borderRight: subFolder !== "files" ? "1px solid #D1D1D1" : 0,
         pt: 3,
       }}
     >
