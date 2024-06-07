@@ -27,9 +27,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 // import TableData from "./TableData";
 // import { DataChange, dbStorageMock } from "../../dataFolder";
 import { CheckBox } from "@mui/icons-material";
+
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CodeIcon from "@mui/icons-material/Code";
+import UploadFile from "../uploadFile/UploadFile";
+
 // import UploadFile from "./UploadFile";
 // Top Toolbar, Side menubar and Table of the content pannel
 const DataChange = {
@@ -119,22 +122,23 @@ const ContentPanel = () => {
         {/* Upload Files Table */}
         <FilesTable
           location={location}
-          dbStorage={{
-            "/Development/Back-end/2023-2024/Planning/Project-1": [
-              {
-                file: {
-                  lastModified: 1713941068809,
-                  lastModifiedDate:
-                    "Wed Apr 24 2024 12:14:28 GMT+0530 (India Standard Time)",
-                  name: "README.md",
-                  size: 15,
-                  type: "",
-                  webkitRelativePath: "",
-                },
-                shared: [],
-              },
-            ],
-          }}
+          // dbStorage={{
+          //   "/Development/Back-end/2023-2024/Planning/Project-1": [
+          //     {
+          //       file: {
+          //         lastModified: 1713941068809,
+          //         lastModifiedDate:
+          //           "Wed Apr 24 2024 12:14:28 GMT+0530 (India Standard Time)",
+          //         name: "README.md",
+          //         size: 15,
+          //         type: "",
+          //         webkitRelativePath: "",
+          //       },
+          //       shared: [],
+          //     },
+          //   ],
+          // }}
+          dbStorage={{}}
         ></FilesTable>
       </Box>
     </Box>
@@ -417,7 +421,10 @@ function FilesTable({ location, dbStorage }) {
               </TableHead>
             </Table>
           </TableContainer>
-          <Box>{/* <UploadFile handleFileChange={handleFileChange} /> */}</Box>
+          <Box>
+            <UploadFile />
+            {/* <UploadFile  handleFileChange={handleFileChange}/> */}
+          </Box>
         </>
       )}
     </Box>
