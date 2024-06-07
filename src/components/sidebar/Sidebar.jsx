@@ -138,6 +138,7 @@ const Sidebar = () => {
                   id={`panel${index + 1}-header`}
                   sx={{
                     bgcolor: "rgb(18, 22, 33)",
+
                     color:
                       expandedIndex !== index ? "rgb(154, 173, 186)" : "white",
                     px: 0,
@@ -169,7 +170,7 @@ const Sidebar = () => {
                   <AccordionDetails
                     sx={{
                       bgcolor: "rgb(18, 22, 33)",
-                      // width: 200,
+                      width: "100%",
                     }}
                   >
                     {Object.keys(Data[e]).map((e1, i) => (
@@ -209,6 +210,7 @@ const Sidebar = () => {
                           }}
                         >
                           <Button
+                            // onClick={() => window.reload()}
                             sx={{
                               color: location.pathname.includes(e1)
                                 ? "white"

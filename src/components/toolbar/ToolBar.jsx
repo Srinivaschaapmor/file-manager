@@ -9,7 +9,7 @@ import {
   Tabs,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import CodeIcon from "@mui/icons-material/Code";
@@ -21,9 +21,10 @@ const ToolBar = ({
   params,
   DataChange,
   handleFileChange,
+  dbStorage,
 }) => {
   const [value, setValue] = useState(0);
-
+  const location = useLocation();
   //Icons for top toolbar
   const iconItems = {
     PLANNING: <AssignmentIcon sx={{ fontSize: 18 }} />,
@@ -164,26 +165,32 @@ const ToolBar = ({
       {/* Upload button and calender selection */}
       <Stack gap={2} direction="row" mt={1} mr={1} mb={1}>
         {/* Upload button */}
-        <label htmlFor="file-upload">
-          <Button
-            component="span"
-            sx={{
-              backgroundColor: "rgb(255, 84, 41)",
-              ":hover": { backgroundColor: "rgb(255, 129, 31,0.5 )" },
-              color: "white",
-            }}
-          >
-            <UploadFileOutlinedIcon sx={{ fontSize: 20, mr: 1 }} />
-            UPLOAD
-          </Button>
-        </label>
-        <input
-          type="file"
-          multiple
-          id="file-upload"
-          style={{ display: "none" }}
-          onChange={handleFileChange}
-        />
+        <Box>
+          {Object.keys(dbStorage).includes(location.pathname) && (
+            <>
+              <label htmlFor="file-upload">
+                <Button
+                  component="span"
+                  sx={{
+                    backgroundColor: "rgb(255, 84, 41)",
+                    ":hover": { backgroundColor: "rgb(255, 129, 31,0.5 )" },
+                    color: "white",
+                  }}
+                >
+                  <UploadFileOutlinedIcon sx={{ fontSize: 20, mr: 1 }} />
+                  UPLOAD
+                </Button>
+              </label>
+              <input
+                type="file"
+                multiple
+                id="file-upload"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+            </>
+          )}
+        </Box>
         <FormControl>
           <Select
             defaultValue={"2023-2024"}
@@ -221,9 +228,13 @@ const ToolBar = ({
             }}
           >
             {["2021-2022", "2022-2023", "2023-2024"].map((year) => (
-              <MenuItem key={year} value={year}>
+              <MenuItem
+                key={year}
+                value={year}
+                // onClick={() => window.location.reload()}
+              >
                 <Link
-                  to={`/${folder}/${subFolder}/${range}/${tab}/${
+                  to={`/${folder}/${subFolder}/${year}/${tab}/${
                     subTab || "%20."
                   }`}
                   style={{ textDecoration: "none", color: "black" }}

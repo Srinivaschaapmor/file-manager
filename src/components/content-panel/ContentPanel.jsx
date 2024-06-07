@@ -277,6 +277,7 @@ const ContentPanel = () => {
 
   useEffect(() => {
     DashboardService.getUsers();
+    console.log("hello", DashboardService.getUsers());
     setTempDbStorage(dbStorage);
   }, [dbStorage]);
 
@@ -299,13 +300,13 @@ const ContentPanel = () => {
         params={useParams()}
         DataChange={DataChange}
         handleFileChange={handleFileChange}
+        dbStorage={dbStorage}
       />
       {/* Bottom Box under the top toolbar */}
       <Box
         sx={{
-          minHeight: "75vh",
           display: "flex",
-          overflowY: "auto",
+          minHeight: "70vh",
           borderTop: "1px solid rgb(203, 213, 225)",
         }}
       >
