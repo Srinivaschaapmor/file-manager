@@ -19,11 +19,11 @@ const MenuItems = ({ params, location, Data }) => {
         top: "0px",
         // display: "flex",
         flexBasis: location.pathname.includes("%20.") ? null : "20%",
-        borderRight: subFolder !== "files" ? "1px solid #D1D1D1" : 0,
-        pt: 3,
+        borderRight: subFolder != "files" ? "1px solid #D1D1D1" : 0,
+        pt: 2,
       }}
     >
-      <Box sx={{}}>
+      <Box>
         <Tabs
           value={value}
           onChange={handleChange}

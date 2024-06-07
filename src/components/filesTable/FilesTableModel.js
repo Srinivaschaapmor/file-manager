@@ -6,4 +6,3 @@ class User {
   }
 }
 export default User;
-s;

@@ -7,13 +7,13 @@ import Header from "../header/Header";
 const DashboardLayout = () => {
   return (
     <Grid container>
-      <Grid item xs={2.5} minHeight={"100vh"}>
+      <Grid item xs={2.25} minHeight={"100vh"}>
         <Sidebar />
       </Grid>
       <Grid
         item
-        xs={9.5}
-        sx={{ p: 2, bgcolor: "rgb(238, 242, 246)", maxHeight: "100vh" }}
+        xs={9.75}
+        sx={{ p: 1, bgcolor: "rgb(238, 242, 246)", maxHeight: "100vh" }}
       >
         <Header />
         <Outlet />

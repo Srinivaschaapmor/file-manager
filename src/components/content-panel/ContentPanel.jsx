@@ -295,6 +295,7 @@ const ContentPanel = () => {
         isSelected={isSelected}
         params={useParams()}
         DataChange={DataChange}
+        handleFileChange={handleFileChange}
       />
       {/* Bottom Box under the top toolbar */}
       <Box
