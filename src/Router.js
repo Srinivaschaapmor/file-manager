@@ -4,18 +4,23 @@ import DashboardLayout from "./components/layouts/DashboardLayout";
 
 import Dashboard from "./components/dashboard/Dashboard";
 import ContentPanel from "./components/content-panel/ContentPanel";
+import LoginLayout from "./components/layouts/LoginLayout";
+import { Login } from "./components/login/Login";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         {/* Login Route */}
-        <Route exact path="/login"></Route>
+        <Route  path="/loginLayout" element={<LoginLayout />}>
+          <Route index element={<Login />} />
+        
+          
+        </Route>
         {/* Protected Routes */}
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Dashboard />}></Route>
-          {/* <Route path="/frontend" element={<Frontend />}></Route>
-          <Route path="/backend" element={<Backend />}></Route> */}
+         
           <Route
             path="/:folder/:subFolder/:range/:tab/:subTab"
             element={<ContentPanel />}
