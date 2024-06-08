@@ -1,24 +1,34 @@
 // import User from "../models/User";
+import axios from "../../utils/mockAxios";
 
 const ContentPanelService = {
   getPaths: async () => {
-    const response = await fetch("http://localhost:3000/paths");
-    const data = await response.json();
-    // console.log(`ContentPanelService paths`, data);
-    return data;
+    try {
+      const response = await axios.get("/paths");
+      return response.data.paths;
+    } catch (error) {
+      console.error("Error fetching paths:", error);
+      return null;
+    }
   },
   getButtons: async () => {
-    const response = await fetch("http://localhost:3000/buttons");
-    const data = await response.json();
-    // console.log(`ContentPanelService buttons`, data);
-    return data;
+    try {
+      const response = await axios.get("/buttons");
+      return response.data.buttons;
+    } catch (error) {
+      console.error("Error fetching buttons:", error);
+      return null;
+    }
   },
   getEmployees: async () => {
-    const response = await fetch("http://localhost:3000/employees");
-    const data = await response.json();
-    // console.log(`ContentPanelService buttons`, data);
-    return data;
-  }
+    try {
+      const response = await axios.get("/employees");
+      return response.data.employees;
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+      return null;
+    }
+  },
 };
 
 export default ContentPanelService;

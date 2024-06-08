@@ -198,21 +198,33 @@ const ContentPanel = () => {
   };
 
   async function fetchPaths() {
-    const data = await ContentPanelService.getPaths();
-    setPaths(data);
-    // console.log(data);
+    const response = await ContentPanelService.getPaths();
+    if (response) {
+      setPaths(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING PATHS");
+    }
   }
 
   async function fetchButtons() {
-    const data = await ContentPanelService.getButtons();
-    setButtons(data);
-    // console.log(data);
+    const response = await ContentPanelService.getButtons();
+    if (response) {
+      setButtons(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING BUTTONS");
+    }
   }
 
   async function fetchEmployees() {
-    const data = await ContentPanelService.getEmployees();
-    setEmployees(data);
-    // console.log(data);
+    const response = await ContentPanelService.getEmployees();
+    if (response) {
+      setEmployees(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING EMPLOYEES");
+    }
   }
 
   useEffect(() => {
@@ -248,7 +260,7 @@ const ContentPanel = () => {
           paths={paths}
           buttons={buttons}
           dbStorage={dbStorage}
-      />
+        />
       )}
 
       {/* Bottom Box under the top toolbar */}
