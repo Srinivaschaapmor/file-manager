@@ -11,8 +11,11 @@ import {
 
 import { useLocation } from "react-router-dom";
 import Breadcrumbs from "../common/components/breadcrumbs/Breadcrumbs";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -24,6 +27,11 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    Cookies.remove("loginDetails");
+    navigate("/loginLayout")
+  }
 
   return (
     <Container sx={{ height: "60px", padding: "10px", mb: 2 }}>
@@ -62,7 +70,7 @@ const Header = () => {
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>
       </Stack>
