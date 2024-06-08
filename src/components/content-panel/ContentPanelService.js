@@ -1,14 +1,34 @@
-import User from "../models/User";
+// import User from "../models/User";
+import axios from "../../utils/mockAxios";
 
-const DashboardService = {
-  getUsers: async () => {
-    // Example API call to fetch users
-    const response = await fetch("https://example.com/api/users");
-    const data = await response.json();
-    // Map response data to User objects
-    return data.map((user) => new User(user.id, user.name, user.email));
+const ContentPanelService = {
+  getPaths: async () => {
+    try {
+      const response = await axios.get("/paths");
+      return response.data.paths;
+    } catch (error) {
+      console.error("Error fetching paths:", error);
+      return null;
+    }
   },
-  // Other CRUD operations can be defined here
+  getButtons: async () => {
+    try {
+      const response = await axios.get("/buttons");
+      return response.data.buttons;
+    } catch (error) {
+      console.error("Error fetching buttons:", error);
+      return null;
+    }
+  },
+  getEmployees: async () => {
+    try {
+      const response = await axios.get("/employees");
+      return response.data.employees;
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+      return null;
+    }
+  },
 };
 
-export default DashboardService;
+export default ContentPanelService;

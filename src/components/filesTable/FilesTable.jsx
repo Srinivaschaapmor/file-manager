@@ -23,8 +23,15 @@ const FilesTable = ({
   return (
     <Box width={"100%"}>
       {Object.keys(dbStorage).length > 0 && (
-        <TableContainer sx={{ width: "100%" }}>
-          <Table>
+        <TableContainer
+          sx={{
+            width: "100%",
+            maxHeight: "70vh",
+            minHeight: "70vh",
+            overflowY: "auto",
+          }}
+        >
+          <Table stickyHeader>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontWeight: 700 }}>File Name</TableCell>
@@ -51,7 +58,7 @@ const FilesTable = ({
                     align="center"
                     sx={{ borderBottom: 0 }}
                   >
-                    {/* <UploadFile /> */}
+                    <UploadFile handleFileChange={handleFileChange} />
                   </TableCell>
                 </TableRow>
               </TableBody>

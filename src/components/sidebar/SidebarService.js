@@ -1,14 +1,38 @@
-import User from "../models/User";
+import axios from "../../utils/mockAxios";
 
-const LoginService = {
-  getUsers: async () => {
-    // Example API call to fetch users
-    const response = await fetch("https://example.com/api/users");
-    const data = await response.json();
-    // Map response data to User objects
-    return data.map((user) => new User(user.id, user.name, user.email));
+const SidebarService = {
+  // getPaths: async () => {
+  //   const response = await fetch("http://localhost:3000/paths");
+  //   const data = await response.json();
+  //   // console.log(`ContentPanelService paths`, data);
+  //   return data;
+  // },
+
+  // getButtons: async () => {
+  //   const response = await fetch("http://localhost:3000/buttons");
+  //   const data = await response.json();
+  //   // console.log(`ContentPanelService buttons`, data);
+  //   return data;
+  // },
+
+  getPaths: async () => {
+    try {
+      const response = await axios.get("/paths");
+      return response.data.paths;
+    } catch (error) {
+      console.error("Error fetching paths:", error);
+      return null;
+    }
   },
-  // Other CRUD operations can be defined here
+  getButtons: async () => {
+    try {
+      const response = await axios.get("/buttons");
+      return response.data.buttons;
+    } catch (error) {
+      console.error("Error fetching buttons:", error);
+      return null;
+    }
+  },
 };
 
-export default LoginService;
+export default SidebarService;

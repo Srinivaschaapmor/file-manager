@@ -1,14 +1,17 @@
-import User from "../models/User";
 
-const LoginService = {
-  getUsers: async () => {
-    // Example API call to fetch users
-    const response = await fetch("https://example.com/api/users");
+const ToolbarService = {
+  getPaths: async () => {
+    const response = await fetch("http://localhost:3000/paths");
     const data = await response.json();
-    // Map response data to User objects
-    return data.map((user) => new User(user.id, user.name, user.email));
+    // console.log(`ContentPanelService paths`, data);
+    return data;
   },
-  // Other CRUD operations can be defined here
+  getButtons: async () => {
+    const response = await fetch("http://localhost:3000/buttons");
+    const data = await response.json();
+    // console.log(`ContentPanelService buttons`, data);
+    return data;
+  }
 };
 
-export default LoginService;
+export default ToolbarService;

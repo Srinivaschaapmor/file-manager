@@ -1,96 +1,16 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-
 import { useLocation, useParams } from "react-router-dom";
-
 import ToolBar from "../toolbar/ToolBar";
 import MenuItems from "../menuItems/MenuItems";
 import FilesTable from "../filesTable/FilesTable";
 import { ToastContainer, toast } from "react-toastify";
 import ShareDrawer from "../shareDrawer/ShareDrawer";
-
-const DataChange = {
-  Sample1: {
-    "Level-10": [],
-    "Level-2": [],
-    "Level-3": [],
-  },
-  Sample2: {
-    "Level-1": [],
-    "Level-2": [],
-    "Level-3": [],
-  },
-};
-
-const Data = {
-  Development: {
-    "Front-End": {
-      Planning: ["Davose", "Aapmor-360", "Nexus-360"],
-      Designing: ["Project-1", "Project-2", "Project-3"],
-      Developing: ["Project-1", "Project-2", "Project-3"],
-    },
-    "Back-end": {
-      Planning: ["Project-1", "Project-2", "Project-3"],
-      Designing: ["Project-1", "Project-2", "Project-3"],
-      Developing: ["Project-1", "Project-2", "Project-3"],
-    },
-  },
-  Testing: {
-    Manual: {
-      "Lv3-1": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-2": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-3": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-    Automation: {
-      "Lv3-x": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-y": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-z": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-  },
-  HumanResource: {
-    Hiring: {
-      "Lv3-1": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-2": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-3": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-    Salary: {
-      "Lv3-x": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-y": ["Lv4-1", "Lv4-2", "Lv4-3"],
-      "Lv3-z": ["Lv4-1", "Lv4-2", "Lv4-3"],
-    },
-  },
-  Sample: {
-    select: {
-      "Level-1": [],
-      "Level-2": [],
-      "Level-3": [],
-    },
-  },
-};
-
-// const departments = [
-//   { name: "HR", members: ["Emp 1", "Emp 2", "Emp 3"] },
-//   { name: "Testing", members: ["Emp 1", "Emp 2", "Emp 3"] },
-//   { name: "Full Stack", members: ["Emp 1", "Emp 2", "Emp 3"] },
-// ];
-
-const employees = {
-  "Full stack": [
-    { id: 1001, name: "Srinivas" },
-    { id: 1002, name: "John Doe" },
-  ],
-  Testing: [
-    { id: 2001, name: "Jane Doe" },
-    { id: 2002, name: "Richard Roe" },
-  ],
-  HR: [
-    { id: 3001, name: "Alice Smith" },
-    { id: 3002, name: "Bob Brown" },
-  ],
-};
+import ContentPanelService from "./ContentPanelService";
 
 const ContentPanel = () => {
   const location = useLocation();
+  const params = useParams();
   const isSelected = (path) => location.pathname.includes(path);
 
   // const { item1, level1, tab1, year, itemOne } = useParams();
@@ -102,6 +22,9 @@ const ContentPanel = () => {
   const [add, setAdd] = useState(false);
   const [checkedEmployees, setCheckedEmployees] = useState([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
+  const [paths, setPaths] = useState("");
+  const [buttons, setButtons] = useState("");
+  const [employees, setEmployees] = useState("");
 
   const handleDrawerClose = () => setDrawerOpen(false);
 
@@ -274,13 +197,52 @@ const ContentPanel = () => {
     toast.success("File Shared Successfully");
   };
 
+  async function fetchPaths() {
+    const response = await ContentPanelService.getPaths();
+    if (response) {
+      setPaths(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING PATHS");
+    }
+  }
+
+  async function fetchButtons() {
+    const response = await ContentPanelService.getButtons();
+    if (response) {
+      setButtons(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING BUTTONS");
+    }
+  }
+
+  async function fetchEmployees() {
+    const response = await ContentPanelService.getEmployees();
+    if (response) {
+      setEmployees(response);
+      // console.log("paths", response);
+    } else {
+      console.log("ERROR FETCHING EMPLOYEES");
+    }
+  }
+
   useEffect(() => {
+    fetchPaths();
+    fetchButtons();
+    fetchEmployees();
+  }, []);
+
+  useEffect(() => {
+    ContentPanelService.getPaths();
+    ContentPanelService.getButtons();
     setTempDbStorage(dbStorage);
   }, [dbStorage]);
 
   useEffect(() => {
     setSelectAllChecked(false);
   }, [department]);
+
   // Cancel button inside side drawer
   const handleCancel = () => {
     setAdd(false);
@@ -290,24 +252,30 @@ const ContentPanel = () => {
   return (
     <Box bgcolor={"white"} mx={5} borderRadius={3}>
       {/*Top Tool bar  */}
-      <ToolBar
-        Data={Data}
-        isSelected={isSelected}
-        params={useParams()}
-        DataChange={DataChange}
-        handleFileChange={handleFileChange}
-      />
+      {paths && buttons && (
+        <ToolBar
+          isSelected={isSelected}
+          params={params}
+          handleFileChange={handleFileChange}
+          paths={paths}
+          buttons={buttons}
+          dbStorage={dbStorage}
+        />
+      )}
+
       {/* Bottom Box under the top toolbar */}
       <Box
         sx={{
-          minHeight: "75vh",
           display: "flex",
-          overflowY: "auto",
+          minHeight: "70vh",
           borderTop: "1px solid rgb(203, 213, 225)",
         }}
       >
         {/* Menu items */}
-        <MenuItems params={useParams()} location={location} Data={Data} />
+        {paths && (
+          <MenuItems params={params} location={location} paths={paths} />
+        )}
+
         {/* Upload Files Table */}
         <FilesTable
           location={location}
@@ -320,22 +288,24 @@ const ContentPanel = () => {
         ></FilesTable>
       </Box>
       <ToastContainer />
-      <ShareDrawer
-        drawerOpen={drawerOpen}
-        handleDrawerClose={handleDrawerClose}
-        setDrawerOpen={setDrawerOpen}
-        selectedFileDetails={selectedFileDetails}
-        department={department}
-        handleDepartmentChange={handleDepartmentChange}
-        selectAllChecked={selectAllChecked}
-        handleSelectAll={handleSelectAll}
-        add={add}
-        employees={employees}
-        handleCheckboxChange={handleCheckboxChange}
-        handleCancel={handleCancel}
-        handleShareClick={handleShareClick}
-        checkedEmployees={checkedEmployees}
-      />
+      {employees && (
+        <ShareDrawer
+          drawerOpen={drawerOpen}
+          handleDrawerClose={handleDrawerClose}
+          setDrawerOpen={setDrawerOpen}
+          selectedFileDetails={selectedFileDetails}
+          department={department}
+          handleDepartmentChange={handleDepartmentChange}
+          selectAllChecked={selectAllChecked}
+          handleSelectAll={handleSelectAll}
+          add={add}
+          employees={employees}
+          handleCheckboxChange={handleCheckboxChange}
+          handleCancel={handleCancel}
+          handleShareClick={handleShareClick}
+          checkedEmployees={checkedEmployees}
+        />
+      )}
     </Box>
   );
 };
