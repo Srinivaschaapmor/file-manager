@@ -12,7 +12,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         {/* Login Route */}
-        <Route  path="/loginLayout" element={<LoginLayout />}>
+        <Route  path="/login" element={<LoginLayout />}>
           <Route index element={<Login />} />
         
           
