@@ -30,7 +30,7 @@ const Header = () => {
 
   const handleLogout = () => {
     Cookies.remove("loginDetails");
-    navigate("/loginLayout")
+    navigate("/login")
   }
 
   return (
